@@ -1,4 +1,4 @@
-x# 📅 Python Calendar Planner
+# 📅 Python Calendar Planner
 
 A terminal-based calendar planner that allows users to add, view, and manage personal events with automatic tagging for overdue and upcoming tasks using intuitive emoji icons.
 
