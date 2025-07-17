@@ -59,6 +59,29 @@ def show_all_events():
                 status = get_event_status(date, time)
                 print(f"{i:<4} {date:<12} {time:<6} {event_name:<25} {status:<12}")
 
+#show only UPCOMING status
+def show_upcoming_events():
+    # Open the events.csv file and read all rows
+    with open("events.csv", "r") as file:
+        reader = csv.reader(file)
+        rows = list(reader)
+        if len(rows) <= 1:
+            print("\n📝 No Upcoming events found.")
+            return
+        print("\n--- Upcoming Events----")
+        print(f"{'No.':<4} {'Date':<12} {'Time':<6} {'Event Name':<25} {'Status':<12}")
+        print("-" * 65)
+        count = 0
+        for i, row in enumerate(rows[1:], 1):  # skip header
+            if len(row) >= 3:
+                date, time, event_name = row[:3]
+                status = get_event_status(date, time)
+                if status == "📍 UPCOMING":
+                    count += 1
+                    print(f"{count:<4} {date:<12} {time:<6} {event_name:<25} {status:<12}")
+        if count == 0:
+            print("No upcoming events found.")
+        
 # Add a new event to the planner and store it in events.csv
 def add_event():
     try:
@@ -107,13 +130,13 @@ while True:
         add_event()
     elif choice == '2':
         show_all_events()
-    # elif choice == '3':
-    #     show_upcoming_events()
+    elif choice == '3':
+        show_upcoming_events()
     # elif choice == '4':
     #     delete_events()
-    # elif choice == '5':
-    #     exit()
-    #     print("Exiting the planner.")
+    elif choice == '5':
+        exit()
+        print("Exiting the planner.")
     else:
         print("Invalid choice, please try again.")
 
